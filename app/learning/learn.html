@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>丝网英语学习 - 丝网盒子</title>
+<link rel="stylesheet" href="shared.css?v=20261013j">
+<link rel="stylesheet" href="assets/learn.css?v=20261013j">
+
+<link rel="stylesheet" href="desktop.css"></head>
+<body class="learn-page">
+
+<div class="ln-topbar">
+  <div class="ln-topbar-in">
+    <a class="ln-back" href="index.html">← 课程</a>
+    <span class="ln-title" id="ln-title">丝网英语</span>
+    <span class="ln-count" id="ln-count">0 / 0</span>
+  </div>
+  <div class="ln-progress"><span id="ln-bar"></span></div>
+</div>
+
+<div class="unit-bar">
+  <div class="unit-bar-in" id="unit-bar-in"></div>
+</div>
+
+<main class="ln-main">
+  <div class="card-box" id="card-box"></div>
+  <p style="text-align:center;font-size:12.5px;color:var(--ink-soft);margin-top:18px;line-height:1.9">
+    左右方向键 / 手机左右滑动 翻句，空格键朗读
+  </p>
+</main>
+
+<div class="ln-actionbar">
+  <div class="ln-actionbar-in">
+    <button class="ab-btn sm" id="btn-prev">‹ 上一句</button>
+    <button class="ab-btn main" id="btn-mark">我记住了</button>
+    <button class="ab-btn sm" id="btn-next">下一句 ›</button>
+  </div>
+</div>
+
+<script src="desktop.js"></script>
+<script src="assets/data.js?v=20261026a"></script>
+<script src="assets/custom-words.js?v=20261026a"></script>
+<script src="assets/store.js?v=20261013j"></script>
+<script src="assets/learn.js?v=20261013j"></script>
+</body>
+</html>

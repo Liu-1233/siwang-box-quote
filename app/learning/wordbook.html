@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>我的单词库</title>
+<link rel="stylesheet" href="shared.css?v=20261026a"><link rel="stylesheet" href="desktop.css?v=20261026a">
+<style>
+.wb-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:20px}.wb-head p{color:var(--ink-soft);margin-top:5px}.wb-count{white-space:nowrap;color:var(--accent-deep);font-weight:800;background:var(--accent-soft);padding:7px 12px;border-radius:999px}.wb-layout{display:grid;grid-template-columns:minmax(300px,420px) minmax(360px,1fr);gap:18px;align-items:start}.wb-form,.wb-list{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}.wb-form h2,.wb-list h2{font-size:17px;margin-bottom:14px}.wb-form .field{margin-bottom:12px}.wb-form textarea{min-height:70px;resize:vertical}.wb-actions{display:flex;gap:9px;align-items:center}.wb-status{font-size:13px;color:var(--ink-soft);min-height:20px;margin-top:10px}.wb-status.bad{color:#b33a2b}.wb-toolbar{display:flex;gap:10px;margin-bottom:13px}.wb-toolbar input{width:100%;padding:9px 12px;border:1px solid var(--line);border-radius:9px;font:inherit}.wb-empty{padding:30px 10px;text-align:center;color:var(--ink-soft);line-height:1.8}.wb-item{border-top:1px solid var(--line);padding:14px 2px}.wb-item:first-of-type{border-top:0}.wb-line{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}.wb-en{font-size:18px;font-weight:800;color:var(--ink)}.wb-ph,.wb-pos{font-size:13px;color:var(--ink-soft)}.wb-zh{margin-top:4px}.wb-ex{font-size:13px;color:var(--ink-soft);margin-top:6px;line-height:1.6}.wb-item-actions{display:flex;gap:8px;margin-top:9px}.wb-mini{border:1px solid var(--line);background:#fff;color:var(--accent-deep);border-radius:8px;padding:5px 10px;cursor:pointer}.wb-mini.danger{color:#b33a2b}.wb-note{margin-top:14px;padding:11px 13px;border-radius:10px;background:#eef6fa;color:#587487;font-size:13px;line-height:1.7}@media(max-width:760px){.wb-layout{grid-template-columns:1fr}.wb-head{display:block}.wb-count{display:inline-block;margin-top:10px}}
+</style></head><body>
+<main class="page-wrap">
+  <div class="wb-head"><div><h1>我的单词库</h1><p>临时遇到的新词，随手加进来，马上进入单词课程和拼写练习。</p></div><span class="wb-count" id="wbCount">0 / 500</span></div>
+  <div class="wb-layout">
+    <section class="wb-form"><h2 id="wbFormTitle">添加新单词</h2>
+      <form id="wbForm" novalidate>
+        <div class="field"><label for="wbEn">英文单词或词组 *</label><input id="wbEn" maxlength="120" autocomplete="off" placeholder="例如 galvanized wire"></div>
+        <div class="field"><label for="wbZh">中文释义 *</label><input id="wbZh" maxlength="200" autocomplete="off" placeholder="例如 镀锌丝"></div>
+        <div class="form-grid"><div class="field"><label for="wbPh">音标</label><input id="wbPh" maxlength="120" placeholder="可不填"></div><div class="field"><label for="wbPos">词性</label><input id="wbPos" maxlength="40" placeholder="n. / v. / adj."></div></div>
+        <div class="field"><label for="wbEx">英文例句</label><textarea id="wbEx" maxlength="500" placeholder="放进真实业务场景里更容易记"></textarea></div>
+        <div class="field"><label for="wbExZh">例句中文</label><textarea id="wbExZh" maxlength="500"></textarea></div>
+        <div class="field"><label for="wbTip">备注</label><input id="wbTip" maxlength="500" placeholder="客户用法、缩写或容易混淆的地方"></div>
+        <div class="wb-actions"><button class="btn" type="submit" id="wbSave">保存到单词库</button><button class="btn ghost" type="button" id="wbCancel" hidden>取消编辑</button></div>
+        <div class="wb-status" id="wbStatus" role="status"></div>
+      </form>
+      <p class="wb-note">保存后立即加入“丝网规格高频单词课”和拼写练习，并随桌面完整备份、学习记录备份一起保存。当前是本机同步，不会上传客户或学习数据。</p>
+    </section>
+    <section class="wb-list"><h2>已经添加的词</h2><div class="wb-toolbar"><input id="wbSearch" type="search" placeholder="搜索英文或中文"></div><div id="wbItems"></div></section>
+  </div>
+</main>
+<script src="desktop.js?v=20261026a"></script><script src="assets/data.js?v=20261026a"></script><script src="assets/custom-words.js?v=20261026a"></script><script src="assets/wordbook.js?v=20261026a"></script>
+</body></html>

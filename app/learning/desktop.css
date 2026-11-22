@@ -1,0 +1,11 @@
+
+:root{--accent:#197b9b;--accent-deep:#195c7d;--accent-soft:#e6f2f7;--ink:#203348;--ink-soft:#607a90;--bg:#f3f7fa;--line:#d8e4ed}
+body{background:#f3f7fa;font-family:"Segoe UI","Microsoft YaHei",sans-serif}
+.site-header,.site-footer{display:none!important}.page-wrap{max-width:980px;padding:24px}.ln-topbar,.unit-bar{background:#f6fafd}.card-box{border:1px solid #d6e5ee;box-shadow:none}.desktop-voice-note{text-align:center;color:#637e92;font-size:12px;line-height:1.7;padding:12px 20px 90px}
+.sp-send,.ss2-send,.ab-btn.main{background:#247e9f}.sp-tool,.ss2-tool{border-color:#cbdfe9}.ln-main{padding-top:20px}.ln-actionbar{background:#f5f9fc}.ln-back{color:#276b88}
+
+:root{--warm-bg:#f3f7fa;--warm-card:#fff;--warm-line:#d5e3ec;--warm-ink:#233c52;--warm-soft:#708698;--warm-main:#277f9f;--warm-main-deep:#1f617e;--warm-tint:#eaf4f8}
+.sp-card,.ss2-card,.sp-done,.ss2-done{border-radius:12px;box-shadow:0 6px 22px #264f7010;padding-top:26px;padding-bottom:24px}
+.sp-note,.ss2-note,.sp-unit,.ss2-unit,.ss2-wcard .lb{border-color:#d1e3ed;color:#487a94}.sp-progress,.ss2-progress{background:#dbe8ef}.sp-input:focus,.ss2-input:focus{box-shadow:0 0 0 4px #277f9f12}
+.sp-zh,.ss2-zh{font-size:26px}.sp-hintline{margin-top:14px}.sp-tools,.ss2-tools{margin-top:18px}.sp-card,.ss2-card{margin-bottom:12px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}

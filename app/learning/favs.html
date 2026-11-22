@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self' data:; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>我的收藏 - 丝网英语学习 - 丝网盒子</title>
+<link rel="stylesheet" href="shared.css?v=20261013j">
+<link rel="stylesheet" href="assets/learn.css?v=20261013j">
+
+<link rel="stylesheet" href="desktop.css"></head>
+<body>
+
+
+
+<main class="page-wrap">
+  <h1>我的收藏</h1>
+  <p class="page-desc">学习时点「收藏」的句子都会出现在这里。发给客户前，可以先在这儿过一遍。</p>
+  <p style="margin-bottom:14px"><a href="index.html" style="color:var(--accent);font-weight:700;font-size:14px">← 回到课程中心</a></p>
+  <div id="list"></div>
+</main>
+
+
+
+<script src="desktop.js"></script>
+<script src="assets/data.js?v=20261026a"></script>
+<script src="assets/custom-words.js?v=20261026a"></script>
+<script src="assets/store.js?v=20261013j"></script>
+<script>
+(function () {
+  var C = window.SW_COURSES;
+  var box = document.getElementById('list');
+  var voice = null;
+
+  function pickVoice() {
+    if (!('speechSynthesis' in window)) return;
+    var vs = window.speechSynthesis.getVoices() || [];
+    var en = vs.filter(function (v) { return /^en/i.test(v.lang); });
+    if (!en.length) return;
+    var prefer = ['Google US English', 'Microsoft Aria', 'Microsoft Zira', 'Samantha'];
+    for (var i = 0; i < prefer.length; i++)
+      for (var j = 0; j < en.length; j++)
+        if (en[j].name.indexOf(prefer[i]) > -1) { voice = en[j]; return; }
+    voice = en[0];
+  }
+  if ('speechSynthesis' in window) {
+    pickVoice();
+    window.speechSynthesis.onvoiceschanged = pickVoice;
+  }
+
+  function speak(t) {
+    if (!('speechSynthesis' in window)) { alert('这个浏览器不支持朗读'); return; }
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance(t);
+    u.lang = 'en-US'; u.rate = 0.9;
+    if (voice) u.voice = voice;
+    window.speechSynthesis.speak(u);
+  }
+
+  function esc(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  // itemId -> { course, item }
+  function find(courseId, itemId) {
+    var c = C.list[courseId];
+    if (!c) return null;
+    for (var i = 0; i < c.units.length; i++) {
+      var its = c.units[i].items;
+      for (var j = 0; j < its.length; j++) {
+        if (its[j].id === itemId) return { course: c, item: its[j] };
+      }
+    }
+    return null;
+  }
+
+  function render() {
+    SWStore.listFavs().then(function (list) {
+      if (!list.length) {
+        box.innerHTML = '<div class="empty">还没有收藏。<br><br>'
+          + '<a href="index.html">去课程中心</a> 学几句，看到好用的点「收藏」。</div>';
+        return;
+      }
+      var html = '';
+      list.forEach(function (f) {
+        var found = find(f.course, f.item);
+        if (!found) return;
+        var it = found.item;
+        var sub = it.ex ? ('<div class="fav-zh">' + esc(it.zh) + '<br><span style="font-size:12.5px">例：' + esc(it.ex) + '</span></div>')
+                        : ('<div class="fav-zh">' + esc(it.zh) + '</div>');
+        html += '<div class="fav-item">'
+          + '<span class="fav-src">' + esc(found.course.title) + '</span>'
+          + '<div class="fav-en">' + esc(it.en) + '</div>'
+          + sub
+          + '<div class="fav-ops">'
+          + '<button data-say="' + esc(it.en) + '">朗读</button>'
+          + '<button data-copy="' + esc(it.en) + '">复制</button>'
+          + '<button data-go="' + esc(f.course) + '">去复习</button>'
+          + '<button data-del="' + esc(f.course) + '|' + esc(it.id) + '">取消收藏</button>'
+          + '</div></div>';
+      });
+      box.innerHTML = html || '<div class="empty">还没有收藏。</div>';
+    });
+  }
+
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+
+    if (b.dataset.say) { speak(b.dataset.say); return; }
+
+    if (b.dataset.copy !== undefined) {
+      var t = b.dataset.copy;
+      var done = function () {
+        var o = b.textContent; b.textContent = '已复制';
+        setTimeout(function () { b.textContent = o; }, 1200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(t).then(done).catch(function () { alert('复制失败'); });
+      } else {
+        var ta = document.createElement('textarea');
+        ta.value = t; document.body.appendChild(ta); ta.select();
+        try { document.execCommand('copy'); done(); } catch (err) {}
+        document.body.removeChild(ta);
+      }
+      return;
+    }
+
+    if (b.dataset.go) { location.href = 'learn.html?c=' + b.dataset.go; return; }
+
+    if (b.dataset.del) {
+      var p = b.dataset.del.split('|');
+      SWStore.toggleFav(p[0], p[1]).then(render);
+    }
+  });
+
+  render();
+})();
+</script>
+
+
+</body>
+</html>

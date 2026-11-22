@@ -1,0 +1,15 @@
+{
+  "name": "siwang-box-desktop",
+  "productName": "丝网盒子",
+  "version": "0.2.17",
+  "description": "丝网盒子 · 服务安平丝网行业的外贸效率工具（客户管理 / 单据中心 / 计算工具 / 标准速查 / 丝网英语）",
+  "main": "main.js",
+  "author": "白七",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "electron-updater": "^6.8.9"
+  },
+  "devDependencies": {
+    "electron": "^44.7.0"
+  }
+}
